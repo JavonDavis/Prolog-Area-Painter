@@ -4,24 +4,16 @@ goal_state([clarendon/green, hanover/red, kingston/yellow,
 	    stJames/blue, stMary/yellow, stThomas/yellow,
 	    trelawny/yellow, westmoreland/yellow]).
 
-dfs(S, Path, Path) :- goal_state(S).
+colorParish(Colors):-
+        bagof(Parish/_, X^adjacentParishes(Parish,X), Colors),
+        colours(Colors).
 
+colored_parishes([]).
+color_parishes([Parish/Colour|Rest]):-
+	color_parishes(Rest), member(Colour,colors),
+	not(adjacent_parish(Parish, Rest)).
 
-%%	Provide a list of parishes along with their list of neighbours.
-%	Apply the colours if the follow the predicate about not being
-%	adjacent to each other.
-dfs(S, Checked, Path) :-
-    % try a move
-    move(S, S2),
-    % ensure the resulting state is new
-    \+member(S2, Checked),
-    % and that this state leads to the goal
-    dfs(S2, [S2|Checked], Path).
-
-color(green).
-color(red).
-color(yellow).
-color(blue).
+colors([blue,red,orange,green]).
 
 parish(hanover).
 parish(westmoreland).
@@ -52,6 +44,10 @@ adjacentParishes(stAndrew, [stCatherine,stMary,kingston,portland,stThomas]).
 adjacentParishes(kingston, [stAndrew]).
 adjacentParishes(portland, [stMary,stAndrew,stThomas]).
 adjacentParishes(stThomas, [stAndrew,portland]).
+
+adjacent_parish(Parish, OtherParish):-
+        adjacentParishes(Parish, AdjacentParish),
+        member(OtherParish, AdjacentParish).
 
 move(hanover,westmoreland).
 move(hanover,stJames).
@@ -103,6 +99,3 @@ move(portland,stThomas).
 move(portland,stAndrew).
 move(portland,stThomas).
 
-adjacent(Parish, OtherParish):-
-        adjacentParishes(Parish, AdjacentParish),
-        member(OtherParish, AdjacentParish).
