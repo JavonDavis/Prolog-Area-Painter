@@ -24,7 +24,7 @@
 % It then uses colours/2 to bind each Var in this list to an appropriate colour
 
 colour_countries(Colours):-
-        setof(Country/_, X^ngb(Country,X), Colours),
+        bagof(Country/_, X^ngb(Country,X), Colours),
         colours(Colours).
 
 % Predicate : colours(+List)
