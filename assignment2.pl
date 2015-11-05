@@ -12,16 +12,19 @@ goal_state([clarendon/green, hanover/red, kingston/yellow,
 %	with the tons of confusing documentation I find :|
 colorParish(Colors):-
         bagof(Parish/_, AParish^adjacentParishes(Parish, AParish), Colors),
-        colours(Colors), parish(AParish).
+        colored_parishes(Colors).
 
 
 colored_parishes([]).
 
 %%	Recursively checking list of parishes and applying colors for
 %	'colors' list if not adjacent and is a parish
-colored_parishes([Parish/Colour|Rest]):-
-	colored_parishes(Rest), member(Colour,colors),
-	not(adjacent_parish(Parish, Rest)), parish(Parish).
+colored_parishes([Parish/Color|Rest]):-
+	colored_parishes(Rest),
+	member(Color, [blue,red,orange,green]),
+	\+ (member(OtherParish/Color, Rest), adjacent_parish(Parish, OtherParish)).
+
+	%%not(adjacent_parish(Parish, Rest)).
 
 colors([blue,red,orange,green]).
 
@@ -57,8 +60,7 @@ adjacentParishes(stThomas, [stAndrew,portland]).
 
 adjacent_parish(Parish, OtherParish):-
         adjacentParishes(Parish, AdjacentParish),
-        member(OtherParish, AdjacentParish),
-	parish(Parish), parish(AdjacentParish).
+        member(OtherParish, AdjacentParish).
 
 move(hanover,westmoreland).
 move(hanover,stJames).
