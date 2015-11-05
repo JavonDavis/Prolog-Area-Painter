@@ -4,14 +4,24 @@ goal_state([clarendon/green, hanover/red, kingston/yellow,
 	    stJames/blue, stMary/yellow, stThomas/yellow,
 	    trelawny/yellow, westmoreland/yellow]).
 
+%%	To create a list 'Colors' of objects of the form 'Parish/Color'
+%	if 'AParish' is a member of the adjacent parishes to 'Parish'
+%	to pass into
+%	This method seems to be carrying out a DFS search based on the
+%	trace function used in SWI-Prolog so is just to implement one
+%	with the tons of confusing documentation I find :|
 colorParish(Colors):-
-        bagof(Parish/_, X^adjacentParishes(Parish,X), Colors),
-        colours(Colors).
+        bagof(Parish/_, AParish^adjacentParishes(Parish, AParish), Colors),
+        colours(Colors), parish(AParish).
+
 
 colored_parishes([]).
-color_parishes([Parish/Colour|Rest]):-
-	color_parishes(Rest), member(Colour,colors),
-	not(adjacent_parish(Parish, Rest)).
+
+%%	Recursively checking list of parishes and applying colors for
+%	'colors' list if not adjacent and is a parish
+colored_parishes([Parish/Colour|Rest]):-
+	colored_parishes(Rest), member(Colour,colors),
+	not(adjacent_parish(Parish, Rest)), parish(Parish).
 
 colors([blue,red,orange,green]).
 
@@ -47,7 +57,8 @@ adjacentParishes(stThomas, [stAndrew,portland]).
 
 adjacent_parish(Parish, OtherParish):-
         adjacentParishes(Parish, AdjacentParish),
-        member(OtherParish, AdjacentParish).
+        member(OtherParish, AdjacentParish),
+	parish(Parish), parish(AdjacentParish).
 
 move(hanover,westmoreland).
 move(hanover,stJames).
