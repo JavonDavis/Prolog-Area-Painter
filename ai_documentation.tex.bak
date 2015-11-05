@@ -1,0 +1,27 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+\title{COMP 3220 Assignment 2}
+\author{620068192,620072062,620068816}
+\date{\today}
+\maketitle
+
+\section*{Problem Approach}
+
+Our approach was to maximize generality as best as possible, in order to do so we needed a way to allow the user to define adjacency of areas, thus we decided to accept as input a list of lists containing ‘areas’,each element is formatted as $\{A_1,A_2,...,A_n\}$ $A_i \in A$ where $A$ is a set of all areas and $A_2,..,A_n$ are adjacent to $A_1$, along with a lsit of colors,so we broke it down into 4 main steps
+\begin{enumerate}
+	\item Pick the first element out of the first element of the set of areas, this will give us the area we want to work with, the rest of the elements from that first element will be the areas adjacent to the one we just chose.
+	\item Pick an appropriate color for this area we chose, that is a color that is a member of the colors given and is not associated with the areas that are adjacent.
+	\item associate this color with the area we chose.
+	\item repeat the process until we have no more areas to choose from.
+\end{enumerate} 
+
+\section*{Drawbacks}
+\begin{enumerate}
+\item We are linearly picking one at a time out of n areas and then choosing an appropriate color out of k colors, which in worst case will run $\bigcirc(kn)$ which can become lengthy as the number of places increase and if the number of adjacencies increase this will result in an increase in the number of colors needed. 
+\end{enumerate}
+\section*{Instructions}
+A full description is given at the beginning of the pl file and also three examples are provided at the end of the file 
+\end{document}

@@ -29,7 +29,7 @@ color_area([[AreaHead|AdjacentAreas]|Rest],Colors,Visited):-
 color_area(Areas,Colors):-
 	color_area(Areas,Colors,[]).
 
-% This would color Jamaica according to parish
+% This would color Jamaica according to parish, in this example the first element represents the parish Hanover and states that Westmoreland and St. James are adjacent to it.
 %color_area([['Hanover', 'Westmoreland','St. James'],['Westmoreland', 'Hanover','St. James','St. Elizabeth'],['St. James', 'Hanover','Westmoreland','St. Elizabeth','Trelawny'],['St. Elizabeth', 'Westmoreland','St. James','Trelawny','Manchester'],['Trelawny', 'St. James','St. Elizabeth','Manchester','St. Ann','Clarendon'],['Manchester', 'St. Elizabeth','Trelawny','St. Ann','Clarendon'],['St. Ann', 'Trelawny','Manchester','Clarendon','St. Catherine','St. Mary'],['Clarendon', 'Trelawny','Manchester','St. Ann','St. Catherine'],['St. Catherine', 'St. Ann','Clarendon','St. Mary','St. Andrew'],['St. Mary', 'St. Ann','St. Catherine','Portland','St. Andrew'],['St. Andrew', 'St. Catherine','St. Mary','Kingston','Portland','St. Thomas'],['Kingston', 'St. Andrew'],['Portland', 'St. Mary','St. Thomas','St. Andrew'],['St. Thomas', 'St. Andrew','Portland']],[blue,red,green,purple]).
 
 % This would color Jamaica with an extra parish named 'The best Parish'
