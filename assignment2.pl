@@ -24,29 +24,21 @@ cuse([P1|Rest], Visited,V):-
 	not(member(P1/V,Visited)),
 	cuse(Rest,Visited,V).
 
-
-
 color(blue).
 color(red).
 color(green).
 color(purple).
 
-custom_sub(Z,[],Z).
+color_parish([],C,V).
 
-custom_sub(Parishes,[Parish/Color|Rest],K):-
-	subtract(Parishes,[Parish],Z),
-	custom_sub(Z,Rest,K).
+%color_parish([hanover,westmoreland,stJames,stElizabeth,stThomas,stAnn,stAndrew,stCatherine,clarendon,stMary,kingston,portland,trelawny,manchester],[blue,red,green,purple],[]).
 
-traverse([],C,V).
-
-
-traverse([Parish|Rest],Colors,Visited):-
-	adjacentParishes(Parish,O), % get adjacent parishes and store in O
-	cuse(O,Visited,Color),
+color_parish([Parish|Rest],Colors,Visited):-
+	adjacentParishes(Parish,O),
+	cuse(O,Visited,Color),!,
 	write(Parish),
 	write("-"),
 	write_ln(Color),  % assign a color to parish at the front of list
-	append(Visited,[Parish/Color],Correct),  % record that we have visited the parish at the top of the list
-	custom_sub(O,Correct,K),
-	traverse(K,Colors,Correct). % traverse the parishes adjacent
+	append(Visited,[Parish/Color],Correct),
+	color_parish(Rest,Colors,Correct).
 
